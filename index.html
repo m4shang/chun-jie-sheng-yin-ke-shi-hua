@@ -6,7 +6,7 @@
 <title>春节声音可视化设计</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
   body {
     background: #0f0a06;
     color: #f0e6d0;
@@ -16,7 +16,7 @@
     flex-direction: column;
     align-items: center;
   }
- 
+
   .grain {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -24,25 +24,41 @@
     pointer-events: none;
     z-index: 0;
   }
- 
-  .wrap{
-   max-width:420px;
-   width:100%;
-   aspect-ratio:9/16;
- }
-  .wrap iframe{
-   width:100%;
-   height:100%;
-   border:0;
- }
- 
-   .video-wrap iframe {
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+  }
+
+  .video-section {
+    width: 100%;
+    padding: 24px 16px 0;
+  }
+
+  .video-wrap {
+    width: 100%;
+   /* 高度改成自动，用 9:16 比例完美匹配抖音完整界面 */
+    aspect-ratio: 9 / 16;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1a100a;
+    border: 1px solid rgba(184,118,42,0.2);
+    position: relative;
+  }
+
+  .video-wrap iframe {
     width: 100%;
     height: 100%;
     display: block;
     border: none;
   }
- 
+
   .loading {
     position: absolute;
     top: 50%; left: 50%;
@@ -51,7 +67,7 @@
     font-size: 14px;
     letter-spacing: 0.1em;
   }
- 
+
   .fullscreen-tip {
     margin-top: 10px;
     text-align: center;
@@ -63,26 +79,26 @@
     justify-content: center;
     gap: 6px;
   }
- 
+
   .fullscreen-tip svg {
     width: 14px;
     height: 14px;
     opacity: 0.6;
   }
- 
+
   .hero {
     width: 100%;
     padding: 28px 24px 0;
     text-align: center;
   }
- 
+
   .label {
     font-size: 11px;
     letter-spacing: 0.3em;
     color: #b8762a;
     margin-bottom: 10px;
   }
- 
+
   h1 {
     font-size: 22px;
     font-weight: 400;
@@ -91,7 +107,7 @@
     letter-spacing: 0.1em;
     margin-bottom: 12px;
   }
- 
+
   .deco-line {
     display: flex;
     align-items: center;
@@ -99,24 +115,24 @@
     justify-content: center;
     margin-bottom: 10px;
   }
- 
+
   .deco-line span {
     display: block;
     height: 1px;
     width: 40px;
     background: linear-gradient(to right, transparent, #b8762a);
   }
- 
+
   .deco-line span:last-child {
     background: linear-gradient(to left, transparent, #b8762a);
   }
- 
+
   .author {
     font-size: 13px;
     color: #9a8060;
     letter-spacing: 0.15em;
   }
- 
+
   .seal {
     width: 48px;
     height: 48px;
@@ -137,7 +153,7 @@
 <body>
 <div class="grain"></div>
 <div class="wrap">
- 
+
   <div class="video-section">
     <div class="video-wrap" id="video-wrap">
       <div class="loading" id="loading">载入中...</div>
@@ -149,7 +165,7 @@
       建议全屏观看，点击右下角展开
     </div>
   </div>
- 
+
   <div class="hero">
     <p class="label">毕业设计作品</p>
     <h1 id="main-title">春节声音可视化设计</h1>
@@ -161,9 +177,9 @@
     <p class="author" id="main-author">作者：马上</p>
     <div class="seal">马</div>
   </div>
- 
+
 </div>
- 
+
 <script>
 async function loadVideo() {
   try {
@@ -171,34 +187,34 @@ async function loadVideo() {
     const cfg = await res.json();
     const wrap = document.getElementById('video-wrap');
     const loading = document.getElementById('loading');
- 
+
     if (cfg.title) document.getElementById('main-title').textContent = cfg.title;
     if (cfg.author) document.getElementById('main-author').textContent = '作者：' + cfg.author;
     document.title = cfg.title || '春节声音可视化设计';
- 
+
     loading.remove();
- 
+
     if (cfg.videoType === 'bilibili' && cfg.bvid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://player.bilibili.com/player.html?bvid=${cfg.bvid}&page=1&high_quality=1&danmaku=0`;
       iframe.allowFullscreen = true;
       iframe.setAttribute('allow', 'fullscreen');
       wrap.appendChild(iframe);
- 
+
     } else if (cfg.videoType === 'douyin' && cfg.dyid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://open.douyin.com/player/video?vid=${cfg.dyid}&autoplay=0`;
       iframe.allowFullscreen = true;
       iframe.setAttribute('allow', 'fullscreen');
       wrap.appendChild(iframe);
- 
+
     } else if (cfg.videoType === 'youtube' && cfg.ytid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube.com/embed/${cfg.ytid}`;
       iframe.allowFullscreen = true;
       iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
       wrap.appendChild(iframe);
- 
+
     } else if (cfg.videoType === 'mp4' && cfg.url) {
       const video = document.createElement('video');
       video.src = cfg.url;
@@ -206,7 +222,7 @@ async function loadVideo() {
       video.playsInline = true;
       video.setAttribute('webkit-playsinline', '');
       wrap.appendChild(video);
- 
+
     } else {
       wrap.innerHTML = '<div class="loading">暂无视频内容</div>';
     }
@@ -214,7 +230,7 @@ async function loadVideo() {
     document.getElementById('video-wrap').innerHTML = '<div class="loading">视频加载失败</div>';
   }
 }
- 
+
 loadVideo();
 </script>
 </body>
