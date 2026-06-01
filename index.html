@@ -217,6 +217,13 @@ async function loadVideo() {
       iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
       wrap.appendChild(iframe);
 
+    } else if (cfg.videoType === 'douyin' && cfg.dyid) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://open.douyin.com/player/video?vid=${cfg.dyid}&autoplay=0`;
+      iframe.allowFullscreen = true;
+      iframe.setAttribute('allow', 'fullscreen');
+      wrap.appendChild(iframe);
+     
     } else if (cfg.videoType === 'mp4' && cfg.url) {
       const video = document.createElement('video');
       video.src = cfg.url;
