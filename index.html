@@ -6,7 +6,7 @@
 <title>春节声音可视化设计</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   body {
     background: #0f0a06;
     color: #f0e6d0;
@@ -16,7 +16,7 @@
     flex-direction: column;
     align-items: center;
   }
-
+ 
   .grain {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -24,95 +24,40 @@
     pointer-events: none;
     z-index: 0;
   }
-
+ 
   .wrap {
     position: relative;
     z-index: 1;
     width: 100%;
     max-width: 480px;
-    padding: 0 0 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 40px;
   }
-
-  .hero {
-    width: 100%;
-    padding: 20px 24px 16px;
-    text-align: center;
-    border-bottom: 1px solid rgba(210,140,60,0.2);
-  }
-
-  .label {
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: #b8762a;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-
-  h1 {
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 1.4;
-    color: #f5e0b8;
-    letter-spacing: 0.08em;
-    margin-bottom: 16px;
-  }
-
-  .deco-line {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    justify-content: center;
-    margin-bottom: 14px;
-  }
-
-  .deco-line span {
-    display: block;
-    height: 1px;
-    width: 40px;
-    background: linear-gradient(to right, transparent, #b8762a);
-  }
-
-  .deco-line span:last-child {
-    background: linear-gradient(to left, transparent, #b8762a);
-  }
-
-  .deco-line i {
-    font-size: 14px;
-    color: #b8762a;
-  }
-
-  .author {
-    font-size: 14px;
-    color: #9a8060;
-    letter-spacing: 0.15em;
-  }
-
+ 
   .video-section {
     width: 100%;
-    padding: 28px 20px 0;
+    padding: 24px 16px 0;
   }
-
+ 
   .video-wrap {
     width: 100%;
+    height: 560px;
     border-radius: 12px;
     overflow: hidden;
     background: #1a100a;
     border: 1px solid rgba(184,118,42,0.2);
     position: relative;
-    aspect-ratio: 9/16;
   }
-
-  .video-wrap iframe,
-  .video-wrap video {
+ 
+  .video-wrap iframe {
     width: 100%;
     height: 100%;
     display: block;
     border: none;
   }
-
+ 
   .loading {
     position: absolute;
     top: 50%; left: 50%;
@@ -121,41 +66,83 @@
     font-size: 14px;
     letter-spacing: 0.1em;
   }
-
-  .error {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+ 
+  .fullscreen-tip {
+    margin-top: 10px;
     text-align: center;
-    color: #9a8060;
-    font-size: 13px;
-    padding: 20px;
-  }
-
-  .footer {
-    margin-top: 36px;
-    text-align: center;
-    padding: 0 24px;
-  }
-
-  .footer p {
-    font-size: 11px;
-    color: #5a4530;
+    font-size: 12px;
+    color: #7a6040;
     letter-spacing: 0.12em;
-    line-height: 1.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
   }
-
+ 
+  .fullscreen-tip svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.6;
+  }
+ 
+  .hero {
+    width: 100%;
+    padding: 28px 24px 0;
+    text-align: center;
+  }
+ 
+  .label {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #b8762a;
+    margin-bottom: 10px;
+  }
+ 
+  h1 {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #f5e0b8;
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+ 
+  .deco-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+ 
+  .deco-line span {
+    display: block;
+    height: 1px;
+    width: 40px;
+    background: linear-gradient(to right, transparent, #b8762a);
+  }
+ 
+  .deco-line span:last-child {
+    background: linear-gradient(to left, transparent, #b8762a);
+  }
+ 
+  .author {
+    font-size: 13px;
+    color: #9a8060;
+    letter-spacing: 0.15em;
+  }
+ 
   .seal {
-    width: 56px;
-    height: 56px;
-    margin: 28px auto 0;
+    width: 48px;
+    height: 48px;
+    margin: 24px auto 0;
     border: 1.5px solid rgba(184,118,42,0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #b8762a;
-    font-size: 18px;
+    font-size: 16px;
     opacity: 0.6;
   }
 </style>
@@ -165,6 +152,19 @@
 <body>
 <div class="grain"></div>
 <div class="wrap">
+ 
+  <div class="video-section">
+    <div class="video-wrap" id="video-wrap">
+      <div class="loading" id="loading">载入中...</div>
+    </div>
+    <div class="fullscreen-tip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#b8762a" stroke-width="2">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+      </svg>
+      建议全屏观看，点击右下角展开
+    </div>
+  </div>
+ 
   <div class="hero">
     <p class="label">毕业设计作品</p>
     <h1 id="main-title">春节声音可视化设计</h1>
@@ -174,20 +174,11 @@
       <span></span>
     </div>
     <p class="author" id="main-author">作者：马上</p>
-  </div>
-
-  <div class="video-section">
-    <div class="video-wrap" id="video-wrap">
-      <div class="loading" id="loading">载入中...</div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <p id="footer-text">春节声音可视化设计 · 视觉传达设计</p>
     <div class="seal">马</div>
   </div>
+ 
 </div>
-
+ 
 <script>
 async function loadVideo() {
   try {
@@ -195,35 +186,34 @@ async function loadVideo() {
     const cfg = await res.json();
     const wrap = document.getElementById('video-wrap');
     const loading = document.getElementById('loading');
-
+ 
     if (cfg.title) document.getElementById('main-title').textContent = cfg.title;
     if (cfg.author) document.getElementById('main-author').textContent = '作者：' + cfg.author;
     document.title = cfg.title || '春节声音可视化设计';
-
+ 
     loading.remove();
-
+ 
     if (cfg.videoType === 'bilibili' && cfg.bvid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://player.bilibili.com/player.html?bvid=${cfg.bvid}&page=1&high_quality=1&danmaku=0`;
       iframe.allowFullscreen = true;
       iframe.setAttribute('allow', 'fullscreen');
-      iframe.scrolling = 'no';
       wrap.appendChild(iframe);
-
-    } else if (cfg.videoType === 'youtube' && cfg.ytid) {
-      const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${cfg.ytid}`;
-      iframe.allowFullscreen = true;
-      iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
-      wrap.appendChild(iframe);
-
+ 
     } else if (cfg.videoType === 'douyin' && cfg.dyid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://open.douyin.com/player/video?vid=${cfg.dyid}&autoplay=0`;
       iframe.allowFullscreen = true;
       iframe.setAttribute('allow', 'fullscreen');
       wrap.appendChild(iframe);
-     
+ 
+    } else if (cfg.videoType === 'youtube' && cfg.ytid) {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${cfg.ytid}`;
+      iframe.allowFullscreen = true;
+      iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+      wrap.appendChild(iframe);
+ 
     } else if (cfg.videoType === 'mp4' && cfg.url) {
       const video = document.createElement('video');
       video.src = cfg.url;
@@ -231,15 +221,15 @@ async function loadVideo() {
       video.playsInline = true;
       video.setAttribute('webkit-playsinline', '');
       wrap.appendChild(video);
-
+ 
     } else {
-      wrap.innerHTML = '<div class="error">暂无视频内容</div>';
+      wrap.innerHTML = '<div class="loading">暂无视频内容</div>';
     }
   } catch(e) {
-    document.getElementById('video-wrap').innerHTML = '<div class="error">视频加载失败，请检查配置</div>';
+    document.getElementById('video-wrap').innerHTML = '<div class="loading">视频加载失败</div>';
   }
 }
-
+ 
 loadVideo();
 </script>
 </body>
