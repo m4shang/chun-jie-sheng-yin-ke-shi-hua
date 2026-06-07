@@ -52,11 +52,13 @@
     position: relative;
   }
 
-  .video-wrap iframe {
+  .video-wrap iframe,
+  .video-wrap video {
     width: 100%;
     height: 100%;
     display: block;
     border: none;
+    object-fit: cover;
   }
 
   .loading {
@@ -146,6 +148,47 @@
     font-size: 16px;
     opacity: 0.6;
   }
+
+  /* 场景展示样式 */
+  .scenes {
+    width: 100%;
+    padding: 40px 24px 0;
+  }
+
+  .scene {
+    margin-bottom: 56px;
+  }
+
+  .scene-title {
+    font-size: 18px;
+    color: #f5e0b8;
+    text-align: center;
+    letter-spacing: 0.12em;
+  }
+
+  .scene-line {
+    width: 60px;
+    height: 1px;
+    background: #b8762a;
+    margin: 12px auto 20px;
+    opacity: 0.6;
+  }
+
+  .scene-gif {
+    width: 100%;
+    border-radius: 12px;
+    display: block;
+    border: 1px solid rgba(184,118,42,.25);
+  }
+
+  .scene-desc {
+    margin-top: 18px;
+    color: #c8b08c;
+    line-height: 1.9;
+    font-size: 13px;
+    text-align: justify;
+  }
+
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
@@ -154,6 +197,7 @@
 <div class="grain"></div>
 <div class="wrap">
 
+  <!-- 视频区 -->
   <div class="video-section">
     <div class="video-wrap" id="video-wrap">
       <div class="loading" id="loading">载入中...</div>
@@ -166,6 +210,7 @@
     </div>
   </div>
 
+  <!-- 作品信息 -->
   <div class="hero">
     <p class="label">毕业设计作品</p>
     <h1 id="main-title">春节声音可视化设计</h1>
@@ -176,6 +221,105 @@
     </div>
     <p class="author" id="main-author">作者：马上</p>
     <div class="seal">馬</div>
+  </div>
+
+  <!-- 场景展示 -->
+  <div class="scenes">
+
+    <div class="scene">
+      <h2 class="scene-title">场景一 · 冬季风声</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景1.gif" class="scene-gif">
+      <p class="scene-desc">
+        冷灰色背景构成冬季空间氛围，水平细线随风声频率产生振动。
+        白色粒子缓慢下落形成雪花效果，并根据风声强弱向左偏移，
+        以动态视觉表现冬季风声的寒冷与流动感。
+      </p>
+    </div>
+
+    <div class="scene">
+      <h2 class="scene-title">场景二 · 机场重逢</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景2.gif" class="scene-gif">
+      <p class="scene-desc">
+        橙黄色光线从中心向外辐射扩散，
+        配合柔和光晕营造温暖的重逢氛围。
+        声音驱动光线强度与扩散速度，
+        表现情绪由压抑到释放的瞬间。
+      </p>
+    </div>
+
+    <div class="scene">
+      <h2 class="scene-title">场景三 · 年货市集</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景3.gif" class="scene-gif">
+      <p class="scene-desc">
+        多彩波纹从随机位置不断扩散，
+        不同层级相互交叠，
+        对应市集中的叫卖声与环境声，
+        呈现春节市场热闹而富有活力的氛围。
+      </p>
+    </div>
+
+    <div class="scene">
+      <h2 class="scene-title">场景四 · 年夜饭</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景4.gif" class="scene-gif">
+      <p class="scene-desc">
+        暖红色与橙色光斑缓慢流动，
+        模拟炉火与烛光般的温暖感受。
+        声音影响光斑亮度与流动节奏，
+        强调家庭团聚的情感温度。
+      </p>
+    </div>
+
+    <div class="scene">
+      <h2 class="scene-title">场景五 · 春晚</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景5.gif" class="scene-gif">
+      <p class="scene-desc">
+        彩色频谱柱状图随音频实时律动，
+        形成类似舞台灯光的视觉效果。
+        高低起伏的节奏对应春晚节目中的声音变化。
+      </p>
+    </div>
+
+    <div class="scene">
+      <h2 class="scene-title">场景六 · 烟花绽放</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景6.gif" class="scene-gif">
+      <p class="scene-desc">
+        多色粒子不断爆炸扩散，
+        模拟烟花在夜空中绽放的瞬间。
+        声音驱动爆炸强度与扩散速度，
+        营造节庆高潮的视觉体验。
+      </p>
+    </div>
+
+    <div class="scene">
+      <h2 class="scene-title">场景七 · 庙会</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景7.gif" class="scene-gif">
+      <p class="scene-desc">
+        红橙色光点在画面中漂浮流动，
+        如同节日灯笼穿梭于人群之间。
+        声音控制光点亮度与运动幅度，
+        呈现庙会的人气与热度。
+      </p>
+    </div>
+
+    <div class="scene">
+      <h2 class="scene-title">场景八 · 高铁返程</h2>
+      <div class="scene-line"></div>
+      <img src="gif/场景8.gif" class="scene-gif">
+      <p class="scene-desc">
+        蓝白色流线高速掠过画面，
+        模拟车窗外快速后退的灯光轨迹。
+        音频驱动流线速度与密度，
+        表现春节结束后返程途中的节奏与速度感。
+      </p>
+    </div>
+
   </div>
 
 </div>
@@ -197,22 +341,22 @@ async function loadVideo() {
     if (cfg.videoType === 'bilibili' && cfg.bvid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://player.bilibili.com/player.html?bvid=${cfg.bvid}&page=1&high_quality=1&danmaku=0`;
-      iframe.allowFullscreen = true;
-      iframe.setAttribute('allow', 'fullscreen');
+      iframe.setAttribute('allow', 'autoplay; fullscreen');
+      iframe.setAttribute('allowfullscreen', 'true');
       wrap.appendChild(iframe);
 
     } else if (cfg.videoType === 'douyin' && cfg.dyid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://open.douyin.com/player/video?vid=${cfg.dyid}&autoplay=0`;
-      iframe.allowFullscreen = true;
-      iframe.setAttribute('allow', 'fullscreen');
+      iframe.setAttribute('allow', 'autoplay; fullscreen');
+      iframe.setAttribute('allowfullscreen', 'true');
       wrap.appendChild(iframe);
 
     } else if (cfg.videoType === 'youtube' && cfg.ytid) {
       const iframe = document.createElement('iframe');
       iframe.src = `https://www.youtube.com/embed/${cfg.ytid}`;
-      iframe.allowFullscreen = true;
       iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', 'true');
       wrap.appendChild(iframe);
 
     } else if (cfg.videoType === 'mp4' && cfg.url) {
